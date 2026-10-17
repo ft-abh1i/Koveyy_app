@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f7f8fc">
+<meta name="description" content="LEVEL UP — your personal growth companion">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+<title>LEVEL UP — Personal Growth</title>
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">↗</div><div><div class="brand-name">LEVEL UP</div><div class="brand-sub">YOUR PERSONAL GROWTH SPACE</div></div></div>
+    <button id="installBtn" class="icon-button hidden" aria-label="Install app" title="Install app">＋</button>
+  </header>
+  <main>
+    <section class="greeting">
+      <div><p class="eyebrow" id="todayLabel">YOUR JOURNEY, TODAY</p><h1>Small steps.<br><span>Real progress.</span></h1><p class="subtext">Become who you want to be, one day at a time.</p></div>
+      <div class="progress-ring" id="progressRing"><div><strong id="percent">0%</strong><small>complete</small></div></div>
+    </section>
+    <nav class="tabs" aria-label="Main navigation">
+      <button class="tab active" data-tab="today">Today</button><button class="tab" data-tab="progress">Progress</button><button class="tab" data-tab="tools">Tools</button><button class="tab" data-tab="journal">Journal</button><button class="tab" data-tab="coach">Practice</button>
+    </nav>
+    <section class="page active" id="page-today">
+      <div class="level-card card">
+        <div class="level-head"><div><p class="eyebrow">YOUR LEVEL</p><h3><span id="levelName">Level 1</span> <span class="level-tag" id="levelTag">Beginner</span></h3><p class="muted" id="xpCaption">0 XP earned · Every small step counts</p></div><div class="xp-badge">⚡ <b id="xpTotal">0</b> XP</div></div>
+        <div class="skill-track xp-track"><div class="skill-fill" id="xpFill" style="width:0%"></div></div><div class="xp-foot"><span id="xpNext">0 / 100 XP</span><span id="achievementCount">0 achievements</span></div>
+        <div class="achievement-strip" id="achievementStrip"></div>
+      </div>
+      <div class="card planner-card"><div class="section-heading compact"><div><p class="eyebrow">A REALISTIC PLAN</p><h2>Today's focus plan</h2></div><button class="small-button" id="shufflePlan">Refresh</button></div><p class="muted">A suggested routine you can adapt around college. Times are suggestions, not deadlines.</p><div id="plannerList" class="planner-list"></div></div>
+      <div class="section-heading"><div><p class="eyebrow">YOUR DAILY PLAN</p><h2>Today's checklist</h2></div><span class="date-pill" id="datePill"></span></div>
+      <div class="habit-list" id="habitList"></div>
+      <div class="quote-card"><span class="spark">✦</span><div><strong>Consistency over intensity.</strong><p>You don't need a perfect day. You need a next step.</p></div></div>
+      <div class="section-heading compact"><div><p class="eyebrow">MOVE YOUR BODY</p><h2>Workout tracker</h2></div></div>
+      <div class="card workout-detail">
+        <div class="workout-fields"><label>Activity<select id="workoutType"><option>Running</option><option>Calisthenics</option></select></label><label>Duration (min)<input id="workoutDuration" type="number" min="1" max="300" placeholder="20"></label></div>
+        <div class="workout-fields"><label>Distance (km, optional)<input id="runDistance" type="number" min="0" max="500" step="0.1" placeholder="e.g. 2.5"></label><label>Sets / reps (optional)<input id="workoutNotes" maxlength="100" placeholder="e.g. 3 sets, 8 reps"></label></div>
+        <button class="primary-button full" id="saveWorkoutDetails">Save workout details</button><div id="workoutHistory" class="mini-history"></div>
+      </div>
+      <div class="workout-grid">
+        <button class="workout-card" data-workout="Calisthenics"><span class="workout-icon">✦</span><strong>Calisthenics</strong><small>Strength & control</small><span class="workout-status" id="status-Calisthenics">Not logged</span></button>
+        <button class="workout-card" data-workout="Running"><span class="workout-icon">↗</span><strong>Running</strong><small>Stamina & energy</small><span class="workout-status" id="status-Running">Not logged</span></button>
+      </div>
+      <div class="card inline-card"><div><strong>Quick reflection</strong><p>What went well today?</p></div><button class="small-button" id="journalQuick">Write</button></div>
+    </section>
+    <section class="page" id="page-progress">
+      <p class="eyebrow">ZOOM OUT</p><h2>Your progress</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><span>🔥</span><strong id="streakValue">0</strong><small>day streak</small></div>
+        <div class="stat-card"><span>✓</span><strong id="doneValue">0</strong><small>tasks completed</small></div>
+        <div class="stat-card"><span>⏱</span><strong id="focusValue">0m</strong><small>focus time</small></div>
+        <div class="stat-card"><span>📓</span><strong id="journalValue">0</strong><small>journal entries</small></div>
+      </div>
+      <div class="card"><div class="card-title-row"><div><p class="eyebrow">LAST 7 DAYS</p><h3>Daily consistency</h3></div></div><div class="week-chart" id="weekChart"></div><div class="chart-legend"><span><i></i> Completed habits</span><span>Goal: 5 daily habits</span></div></div>
+      <div class="card"><p class="eyebrow">YOUR SKILLS</p><h3>Keep building</h3><div id="skillProgress"></div></div>
+      <div class="card"><p class="eyebrow">WEEKLY INSIGHT</p><h3 id="weeklyInsightTitle">Your week, in perspective</h3><p id="weeklyInsight" class="muted">Your weekly insight will appear as you log activities.</p></div>
+      <button class="secondary-button full" id="exportBtn">Export my data (JSON)</button>
+      <label class="secondary-button full restore-label">Import / restore backup (JSON)<input type="file" id="importFile" accept="application/json,.json" hidden></label>
+      <button class="text-button danger-text" id="resetBtn">Reset all app data</button>
+    </section>
+    <section class="page" id="page-tools">
+      <p class="eyebrow">FOCUS & ROUTINE</p><h2>Your tools</h2>
+      <div class="card timer-card">
+        <div class="timer-top"><div><p class="eyebrow">FOCUS TIMER</p><h3 id="timerTitle">Focus session</h3></div><select id="timerMode" aria-label="Timer duration"><option value="25">25 min focus</option><option value="15">15 min focus</option><option value="5">5 min break</option><option value="45">45 min deep work</option></select></div>
+        <div class="timer-display" id="timerDisplay">25:00</div><div class="timer-track"><div id="timerBar"></div></div>
+        <div class="timer-actions"><button class="primary-button" id="timerStart">Start focus</button><button class="secondary-button" id="timerReset">Reset</button></div>
+        <p class="muted small-note">Completed focus sessions are added to your progress. Keep the app open while the timer runs.</p>
+      </div>
+      <div class="card"><p class="eyebrow">REMINDERS</p><h3>Make time for your goals</h3><p class="muted">Choose a daily reminder time. Browser notifications are best-effort and may not arrive while the app is closed.</p>
+        <label class="field-label" for="reminderType">Remind me about</label><select id="reminderType"><option value="Daily growth">Daily growth routine</option><option value="French practice">French practice</option><option value="C + DSA">C + DSA practice</option><option value="Communication practice">Communication practice</option><option value="Movement">Movement / workout</option><option value="Journal">Daily journal</option></select>
+        <label class="field-label" for="reminderTime">Daily reminder time</label><div class="reminder-row"><input type="time" id="reminderTime" value="19:00"><button class="primary-button" id="saveReminder">Save reminder</button></div><div class="reminder-actions"><button class="secondary-button" id="testReminder">Test notification</button><button class="secondary-button" id="disableReminder">Turn off</button></div><p id="reminderStatus" class="status-message" aria-live="polite">No reminder set.</p>
+      </div>
+      <div class="card"><p class="eyebrow">YOUR APP</p><h3>Appearance</h3><p class="muted">Choose the look that feels best to you.</p><div class="theme-row"><button class="secondary-button" id="lightTheme">☀️ Light theme</button><button class="secondary-button" id="darkTheme">🌙 Dark theme</button></div></div>
+      <div class="card"><p class="eyebrow">YOUR PRACTICE</p><h3>Quick-start guide</h3><ul class="guide-list"><li><b>Communication</b><span>Speak for 2 minutes; record and review.</span></li><li><b>French</b><span>Learn 5 words and say 3 sentences aloud.</span></li><li><b>C + DSA</b><span>Solve one problem and explain your logic.</span></li><li><b>Calisthenics</b><span>Use controlled form and allow recovery.</span></li><li><b>Running</b><span>Start easy; build distance gradually.</span></li></ul></div>
+    </section>
+    <section class="page" id="page-coach">
+      <p class="eyebrow">PRACTISE THE PERSON YOU'RE BECOMING</p><h2>Communication lab</h2>
+      <div class="card prompt-card"><p class="eyebrow">TODAY'S SPEAKING PROMPT</p><h3 id="speechPrompt">Introduce yourself with confidence</h3><p class="muted" id="speechHint">Speak for two minutes: who you are, what you're learning, and one goal you're working toward.</p><div class="prompt-actions"><button class="secondary-button" id="newPrompt">New prompt</button><button class="primary-button" id="speechTimerBtn">Start 2-min timer</button></div><div class="speech-timer" id="speechTimer">02:00</div><div class="workout-fields"><label>Practice date<input id="speechDate" type="date"></label><label>Confidence (1–5)<select id="speechConfidence"><option value="1">1 — Nervous</option><option value="2">2</option><option value="3" selected>3 — Okay</option><option value="4">4</option><option value="5">5 — Confident</option></select></label></div><label class="field-label" for="speechNotes">What went well / what to improve?</label><textarea id="speechNotes" rows="3" placeholder="One thing I did well… one thing to practise…"></textarea><button class="primary-button full" id="saveSpeech">Save speaking practice</button><p id="speechStatus" class="status-message"></p></div>
+      <div class="card"><p class="eyebrow">MILESTONES</p><h3>Practice history</h3><div id="speechHistory" class="mini-history"></div></div>
+    </section>
+    <section class="page" id="page-journal">
+      <p class="eyebrow">CHECK IN WITH YOURSELF</p><h2>Daily journal</h2>
+      <div class="card"><p class="eyebrow">REFLECTION STARTER</p><h3 id="journalPrompt">What is one small win you had today?</h3><button class="small-button" id="newJournalPrompt">Give me another prompt</button></div>
+      <div class="card journal-card"><label class="field-label" for="journalDate">Entry date</label><input type="date" id="journalDate"><label class="field-label" for="journalMood">How are you feeling?</label><select id="journalMood"><option>Good</option><option>Focused</option><option>Okay</option><option>Stressed</option><option>Tired</option><option>Grateful</option></select><label class="field-label" for="journalText">A few thoughts</label><textarea id="journalText" rows="6" placeholder="What did you learn? What went well? What will you try tomorrow?"></textarea><button class="primary-button full" id="saveJournal">Save journal entry</button><p id="journalStatus" class="status-message" aria-live="polite"></p></div>
+      <div class="section-heading compact"><div><p class="eyebrow">LOOK BACK</p><h2>Past entries</h2></div></div><div id="journalEntries" class="entry-list"></div>
+    </section>
+  </main>
+  <footer><span>LEVEL UP</span><span>Built for progress, not perfection.</span></footer>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
